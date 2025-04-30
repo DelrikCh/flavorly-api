@@ -1,4 +1,5 @@
 @startuml users
+
 !procedure $stop_if($param, $condition, $error, $message)
     if($param?) then ($condition)
         stop
@@ -10,9 +11,10 @@
 
 start
 
+split
 :/register;
-$stop_if("email", "no", "400", "joi message")
-$stop_if("password", "no", "400", "joi message")
+$stop_if("Email provided", "no", "400", "joi message")
+$stop_if("Password provided", "no", "400", "joi message")
 $stop_if("User with specified email exists", "yes", "409", "Email in use")
 :hashPassword;
 :createUser;
@@ -20,6 +22,17 @@ $stop_if("User with specified email exists", "yes", "409", "Email in use")
 end
 note left
     201, User created
+end note
+
+split again
+:/login;
+$stop_if("Email provided", "no", "400", "joi message")
+$stop_if("Password provided", "no", "400", "joi message")
+$stop_if("Wrong email or password", "yes", "401", "Invalid credentials")
+
+end
+note left
+    200, {token: "token", user: {id: "id", email: "email"}}
 end note
 
 @enduml
