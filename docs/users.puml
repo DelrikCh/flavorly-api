@@ -16,7 +16,7 @@
 start
 
 split
-:/register;
+:/register (POST);
 note left
     params: email, password, firstName
 end note
@@ -33,7 +33,7 @@ note left
 end note
 
 split again
-:/login;
+:/login (POST);
 note left
     params: email, password
 end note
@@ -54,7 +54,7 @@ note left
 end note
 
 split again
-:/current;
+:/current (GET);
 $stop_if_unauthorized()
 end
 note left
@@ -69,7 +69,7 @@ note left
 end note
 
 split again
-:/details;
+:/details (GET);
 note left
     params: userId
 end note
@@ -109,7 +109,7 @@ else (no)
 endif
 
 split again
-:/avatar;
+:/avatar (PATCH);
 note left
     params: avatar
 end note
@@ -124,7 +124,7 @@ note left
 end note
 
 split again
-:/followers;
+:/followers (GET);
 note left
     params: userId
 end note
@@ -147,7 +147,7 @@ note left
 end note
 
 split again
-:/following;
+:/following (GET);
 $stop_if_unauthorized()
 end
 note left
@@ -165,7 +165,7 @@ note left
 end note
 
 split again
-:/follow;
+:/follow (POST);
 note left
     params: userId
 end note
@@ -184,7 +184,7 @@ note left
 end note
 
 split again
-:/unfollow;
+:/unfollow (DELETE);
 note left
     params: userId
 end note
@@ -203,7 +203,7 @@ note left
 end note
 
 split again
-:/logout;
+:/logout (POST);
 $stop_if_unauthorized()
 end
 note left
