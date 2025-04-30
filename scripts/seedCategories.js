@@ -7,7 +7,6 @@ const seed = async () => {
   try {
     await connectDB();
 
-    // await sequelize.sync({ force: true });
     console.log('Tables synced');
 
     const filePath = path.resolve('data/categories.json');
@@ -18,6 +17,7 @@ const seed = async () => {
       name: cat.name,
     }));
 
+    await Category.sync();
     await Category.bulkCreate(categories);
     console.log('Categories seeded successfully');
     process.exit(0);
