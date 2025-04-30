@@ -123,4 +123,27 @@ note left
     }
 end note
 
+split again
+:/followers;
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+end
+note left
+    200,
+    response: {
+        followers: [
+            {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email"
+            }
+        ]
+    }
+end note
+
 @enduml
