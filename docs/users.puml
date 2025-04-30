@@ -1,0 +1,25 @@
+@startuml users
+!procedure $stop_if($param, $condition, $error, $message)
+    if($param?) then ($condition)
+        stop
+        note left
+            $error, $message
+        end note
+    endif
+!endprocedure
+
+start
+
+:/register;
+$stop_if("email", "no", "400", "joi message")
+$stop_if("password", "no", "400", "joi message")
+$stop_if("User with specified email exists", "yes", "409", "Email in use")
+:hashPassword;
+:createUser;
+
+end
+note left
+    201, User created
+end note
+
+@enduml
