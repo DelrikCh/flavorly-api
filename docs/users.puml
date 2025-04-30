@@ -9,10 +9,17 @@
     endif
 !endprocedure
 
+!procedure $stop_if_unauthorized()
+    $stop_if("Authorized", "no", "401", "Unauthorized")
+!endprocedure
+
 start
 
 split
 :/register;
+note left
+    params: email, password, firstName
+end note
 $stop_if("Email provided", "no", "400", "joi message")
 $stop_if("Password provided", "no", "400", "joi message")
 $stop_if("First name provided", "no", "400", "joi message")
@@ -27,13 +34,63 @@ end note
 
 split again
 :/login;
+note left
+    params: email, password
+end note
 $stop_if("Email provided", "no", "400", "joi message")
 $stop_if("Password provided", "no", "400", "joi message")
 $stop_if("Wrong email or password", "yes", "401", "Invalid credentials")
 
 end
 note left
-    200, {token: "token", user: {id: "id", email: "email", firstName: "firstName"}}
+    200,
+    {
+    token: "token",
+    user: {
+        id: "id",
+        email: "email",
+        firstName: "firstName"
+    }}
 end note
+
+split again
+:/details;
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+if(UserId is the same as logged in user?) then (yes)
+    end
+    note left
+        200,
+        response: {
+            user: {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email",
+                addedRecipesCount: 0,
+                favoriteRecipesCount: 0,
+                followersCount: [],
+                followingCount: []
+        }}
+    end note
+else (no)
+    end
+    note left
+        200,
+        response: {
+            user: {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email",
+                addedRecipesCount: 0,
+                followersCount: []
+        }}
+    end note
+endif
 
 @enduml
