@@ -146,4 +146,23 @@ note left
     }
 end note
 
+split again
+:/following;
+$stop_if_unauthorized()
+end
+note left
+    200,
+    response: {
+        following: [
+            {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email"
+            }
+        ]
+    }
+end note
+
+
 @enduml
