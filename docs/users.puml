@@ -15,6 +15,7 @@ split
 :/register;
 $stop_if("Email provided", "no", "400", "joi message")
 $stop_if("Password provided", "no", "400", "joi message")
+$stop_if("First name provided", "no", "400", "joi message")
 $stop_if("User with specified email exists", "yes", "409", "Email in use")
 :hashPassword;
 :createUser;
@@ -32,7 +33,7 @@ $stop_if("Wrong email or password", "yes", "401", "Invalid credentials")
 
 end
 note left
-    200, {token: "token", user: {id: "id", email: "email"}}
+    200, {token: "token", user: {id: "id", email: "email", firstName: "firstName"}}
 end note
 
 @enduml
