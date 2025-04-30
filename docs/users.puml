@@ -54,6 +54,21 @@ note left
 end note
 
 split again
+:/current;
+$stop_if_unauthorized()
+end
+note left
+    200,
+    {
+    user: {
+        id: "id",
+        avatar: "avatarLink",
+        email: "email",
+        firstName: "firstName"
+    }}
+end note
+
+split again
 :/details;
 note left
     params: userId
