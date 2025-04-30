@@ -202,4 +202,15 @@ note left
     }
 end note
 
+split again
+:/logout;
+$stop_if_unauthorized()
+end
+note left
+    200,
+    response: {
+        message: "You are logged out"
+    }
+end note
+
 @enduml
