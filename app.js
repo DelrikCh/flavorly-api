@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
 
 import { connectDB } from './db/index.js';
 import categoriesRouter from './routes/categoriesRouter.js';
@@ -12,6 +13,7 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(path.resolve(), 'public')));
 
 app.use('/api/categories', categoriesRouter);
 
