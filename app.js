@@ -2,7 +2,10 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import { connectDB } from './db/index.js';
 import categoriesRouter from './routes/categoriesRouter.js';
+
+await connectDB();
 
 const app = express();
 
