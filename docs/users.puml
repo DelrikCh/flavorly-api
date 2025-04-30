@@ -164,5 +164,24 @@ note left
     }
 end note
 
+split again
+:/follow;
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+$stop_if("UserId is the same as logged in user", "yes", "400", "You can't follow yourself")
+$stop_if("UserId already followed", "yes", "400", "You are already following this user")
+
+end
+note left
+    200,
+    response: {
+        message: "You are now following this user"
+    }
+end note
+
 
 @enduml
