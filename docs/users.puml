@@ -108,4 +108,19 @@ else (no)
     end note
 endif
 
+split again
+:/avatar;
+note left
+    params: avatar
+end note
+$stop_if_unauthorized()
+$stop_if("Avatar provided", "no", "400", "joi message")
+end
+note left
+    200,
+    response: {
+        "avatar": "avatarLink"
+    }
+end note
+
 @enduml
