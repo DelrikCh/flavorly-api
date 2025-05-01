@@ -1,0 +1,216 @@
+@startuml users
+
+!procedure $stop_if($param, $condition, $error, $message)
+    if($param?) then ($condition)
+        stop
+        note left
+            $error, $message
+        end note
+    endif
+!endprocedure
+
+!procedure $stop_if_unauthorized()
+    $stop_if("Authorized", "no", "401", "Unauthorized")
+!endprocedure
+
+start
+
+split
+:/register (POST);
+note left
+    params: email, password, firstName
+end note
+$stop_if("Email provided", "no", "400", "joi message")
+$stop_if("Password provided", "no", "400", "joi message")
+$stop_if("First name provided", "no", "400", "joi message")
+$stop_if("User with specified email exists", "yes", "409", "Email in use")
+:hashPassword;
+:createUser;
+
+end
+note left
+    201, User created
+end note
+
+split again
+:/login (POST);
+note left
+    params: email, password
+end note
+$stop_if("Email provided", "no", "400", "joi message")
+$stop_if("Password provided", "no", "400", "joi message")
+$stop_if("Wrong email or password", "yes", "401", "Invalid credentials")
+
+end
+note left
+    200,
+    {
+    token: "token",
+    user: {
+        id: "id",
+        email: "email",
+        firstName: "firstName"
+    }}
+end note
+
+split again
+:/current (GET);
+$stop_if_unauthorized()
+end
+note left
+    200,
+    {
+    user: {
+        id: "id",
+        avatar: "avatarLink",
+        email: "email",
+        firstName: "firstName"
+    }}
+end note
+
+split again
+:/details (GET);
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+if(UserId is the same as logged in user?) then (yes)
+    end
+    note left
+        200,
+        response: {
+            user: {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email",
+                addedRecipesCount: 0,
+                favoriteRecipesCount: 0,
+                followersCount: [],
+                followingCount: []
+        }}
+    end note
+else (no)
+    end
+    note left
+        200,
+        response: {
+            user: {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email",
+                addedRecipesCount: 0,
+                followersCount: []
+        }}
+    end note
+endif
+
+split again
+:/avatar (PATCH);
+note left
+    params: avatar
+end note
+$stop_if_unauthorized()
+$stop_if("Avatar provided", "no", "400", "joi message")
+end
+note left
+    200,
+    response: {
+        "avatar": "avatarLink"
+    }
+end note
+
+split again
+:/followers (GET);
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+end
+note left
+    200,
+    response: {
+        followers: [
+            {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email"
+            }
+        ]
+    }
+end note
+
+split again
+:/following (GET);
+$stop_if_unauthorized()
+end
+note left
+    200,
+    response: {
+        following: [
+            {
+                id: "id",
+                "avatar": "avatarLink",
+                firstName: "firstName",
+                email: "email"
+            }
+        ]
+    }
+end note
+
+split again
+:/follow (POST);
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+$stop_if("UserId is the same as logged in user", "yes", "400", "You can't follow yourself")
+$stop_if("UserId already followed", "yes", "400", "You are already following this user")
+
+end
+note left
+    200,
+    response: {
+        message: "You are now following this user"
+    }
+end note
+
+split again
+:/unfollow (DELETE);
+note left
+    params: userId
+end note
+$stop_if_unauthorized()
+$stop_if("UserId provided", "no", "400", "joi message")
+$stop_if("UserId not found", "yes", "404", "User not found")
+$stop_if("UserId is the same as logged in user", "yes", "400", "You can't unfollow yourself")
+$stop_if("UserId not followed", "yes", "400", "You are not following this user")
+
+end
+note left
+    200,
+    response: {
+        message: "You are not following this user anymore"
+    }
+end note
+
+split again
+:/logout (POST);
+$stop_if_unauthorized()
+end
+note left
+    200,
+    response: {
+        message: "You are logged out"
+    }
+end note
+
+@enduml
