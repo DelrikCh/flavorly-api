@@ -2,6 +2,7 @@ import express from 'express';
 
 // Helper functions
 import validateBody from '../helpers/validateBody.js';
+import authenticate from '../middlewares/authenticate.js';
 
 // Schemas
 import userRegisterSchema from '../schemas/users/userRegisterSchema.js';

@@ -1,10 +1,10 @@
 import { default as registerUserService } from '../../services/users/registerUser.js';
-import getUserByEmail from '../../services/users/getUserByEmail.js';
+import findUser from '../../services/users/findUser.js';
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   // Check if the user already exists
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await findUser({ email });
   if (existingUser) {
     return res.status(409).json({ message: 'Email in use' });
   }
