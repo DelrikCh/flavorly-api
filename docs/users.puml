@@ -12,13 +12,12 @@
 !procedure $stop_if_unauthorized()
     $stop_if("Authorized", "no", "401", "Unauthorized")
 !endprocedure
-
 start
 
 split
 :/register (POST);
 note left
-    params: email, password, firstName
+    params: email, password, name
 end note
 $stop_if("Email provided", "no", "400", "joi message")
 $stop_if("Password provided", "no", "400", "joi message")
@@ -29,7 +28,7 @@ $stop_if("User with specified email exists", "yes", "409", "Email in use")
 
 end
 note left
-    201, User created
+    201, User registered successfully
 end note
 
 split again
@@ -49,7 +48,7 @@ note left
     user: {
         id: "id",
         email: "email",
-        firstName: "firstName"
+        name: "name"
     }}
 end note
 
@@ -64,7 +63,7 @@ note left
         id: "id",
         avatar: "avatarLink",
         email: "email",
-        firstName: "firstName"
+        name: "name"
     }}
 end note
 
@@ -84,12 +83,12 @@ if(UserId is the same as logged in user?) then (yes)
             user: {
                 id: "id",
                 "avatar": "avatarLink",
-                firstName: "firstName",
+                name: "name",
                 email: "email",
-                addedRecipesCount: 0,
-                favoriteRecipesCount: 0,
-                followersCount: [],
-                followingCount: []
+                addedRecipes: 0,
+                favoriteRecipes: 0,
+                followers: [],
+                following: []
         }}
     end note
 else (no)
@@ -100,10 +99,10 @@ else (no)
             user: {
                 id: "id",
                 "avatar": "avatarLink",
-                firstName: "firstName",
+                name: "name",
                 email: "email",
-                addedRecipesCount: 0,
-                followersCount: []
+                addedRecipes: 0,
+                followers: []
         }}
     end note
 endif
@@ -139,7 +138,7 @@ note left
             {
                 id: "id",
                 "avatar": "avatarLink",
-                firstName: "firstName",
+                name: "name",
                 email: "email"
             }
         ]
@@ -157,7 +156,7 @@ note left
             {
                 id: "id",
                 "avatar": "avatarLink",
-                firstName: "firstName",
+                name: "name",
                 email: "email"
             }
         ]
