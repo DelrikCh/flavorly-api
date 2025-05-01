@@ -5,6 +5,7 @@ import path from 'path';
 
 import { connectDB } from './db/index.js';
 import categoriesRouter from './routes/categoriesRouter.js';
+import ingredientsRouter from './routes/ingredientsRouter.js';
 
 await connectDB();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(path.resolve(), 'public')));
 
 app.use('/api/categories', categoriesRouter);
+app.use('/api/ingredients', ingredientsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Route not found' });
