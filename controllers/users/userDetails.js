@@ -28,7 +28,10 @@ const pickFields = (obj, fields) =>
 
 const userDetails = async (req, res) => {
   const user = req.user;
-  const userId = req.body.userId;
+  const { userId } = req.query;
+  if (!userId) {
+    return res.status(400).json({ message: 'User ID is required' });
+  }
   const userInfo = await findUser({ id: userId });
   if (!userInfo) {
     return res.status(404).json({ message: 'User not found' });
