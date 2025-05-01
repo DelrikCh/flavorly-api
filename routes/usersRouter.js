@@ -14,6 +14,7 @@ import registerUser from '../controllers/users/registerUser.js';
 import loginUser from '../controllers/users/loginUser.js';
 import currentUser from '../controllers/users/currentUser.js';
 import userDetails from '../controllers/users/userDetails.js';
+import logoutUser from '../controllers/users/logoutUser.js';
 
 const usersRouter = express.Router();
 
@@ -31,6 +32,6 @@ usersRouter.get(
 // usersRouter.get('/following', getFollowing);
 // usersRouter.post('/follow', followUser);
 // usersRouter.delete('/unfollow', unfollowUser);
-// usersRouter.post('/logout', logoutUser);
+usersRouter.post('/logout', authenticate, logoutUser);
 
 export default usersRouter;
