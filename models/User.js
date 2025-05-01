@@ -1,4 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
+import { ObjectId } from 'bson';
 import { sequelize } from '../db/index.js';
 
 class User extends Model {
@@ -12,6 +13,7 @@ User.init(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
+      defaultValue: () => new ObjectId().toString(),
     },
     name: {
       type: DataTypes.STRING,
@@ -32,19 +34,23 @@ User.init(
     },
     addedRecipes: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
     favoriteRecipes: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
     followers: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
     following: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0,
     },
   },
   {

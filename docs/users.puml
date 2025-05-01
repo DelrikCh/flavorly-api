@@ -29,7 +29,7 @@ $stop_if("User with specified email exists", "yes", "409", "Email in use")
 
 end
 note left
-    201, User created
+    201, User registered successfully
 end note
 
 split again
