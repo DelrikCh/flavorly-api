@@ -9,13 +9,19 @@ class Recipe extends Model {
       foreignKey: 'recipeId',
       otherKey: 'ingredientId',
     });
+    Recipe.belongsToMany(models.User, {
+      through: models.Favorite,
+      foreignKey: 'recipeId',
+      as: 'favoritedBy',
+    });
   }
 }
 
 Recipe.init(
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     ownerId: DataTypes.STRING,
@@ -26,8 +32,8 @@ Recipe.init(
     description: DataTypes.TEXT,
     thumb: DataTypes.STRING,
     time: DataTypes.STRING,
-    rating: {
-      type: DataTypes.FLOAT,
+    favoritesCount: {
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },

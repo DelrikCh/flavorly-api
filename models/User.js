@@ -3,8 +3,13 @@ import { ObjectId } from 'bson';
 import { sequelize } from '../db/index.js';
 
 class User extends Model {
-  static associate(_) {
+  static associate(models) {
     // Associations are defined in Recipe and Ingredient models
+    User.belongsToMany(models.Recipe, {
+      through: models.Favorite,
+      foreignKey: 'userId',
+      as: 'favorites',
+    });
   }
 }
 
