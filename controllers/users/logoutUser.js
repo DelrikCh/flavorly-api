@@ -1,4 +1,4 @@
-import { default as logoutUserService } from '../../services/users/logoutUser.js';
+import logoutUserService from '../../services/users/logoutUser.js';
 
 const logoutUser = async (req, res) => {
   const user = req.user;

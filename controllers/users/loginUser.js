@@ -1,4 +1,4 @@
-import { default as loginUserService } from '../../services/users/loginUser.js';
+import loginUserService from '../../services/users/loginUser.js';
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;

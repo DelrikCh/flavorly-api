@@ -1,4 +1,4 @@
-import { default as registerUserService } from '../../services/users/registerUser.js';
+import registerUserService from '../../services/users/registerUser.js';
 import findUser from '../../services/users/findUser.js';
 
 const registerUser = async (req, res) => {
