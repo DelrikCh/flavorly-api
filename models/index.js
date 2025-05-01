@@ -4,6 +4,7 @@ import Category from './Category.js';
 import Ingredient from './Ingredient.js';
 import Recipe from './Recipe.js';
 import RecipeIngredient from './RecipeIngredient.js';
+import User from './User.js';
 
 const models = {
   Area,
@@ -11,6 +12,7 @@ const models = {
   Ingredient,
   Recipe,
   RecipeIngredient,
+  User,
 };
 
 // Initialize associations

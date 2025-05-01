@@ -21,6 +21,7 @@ const seedData = async () => {
         name: area.name,
       }))
     );
+    console.log('Areas seeded successfully.');
 
     // Load and insert Categories
     const categoriesData = JSON.parse(
@@ -32,6 +33,26 @@ const seedData = async () => {
         name: category.name,
       }))
     );
+    console.log('Categories seeded successfully.');
+
+    // Load and insert Users
+    const usersData = JSON.parse(
+      fs.readFileSync(path.join(__dirname, '../data/users.json'), 'utf-8')
+    );
+    await models.User.bulkCreate(
+      usersData.map((user) => ({
+        id: user._id.$oid,
+        name: user.name,
+        email: user.email,
+        password: user.password || 'DummyPassword', // Default password if not provided
+        avatar: user.avatar,
+        addedRecipes: user.addedRecipes || 0, // Default to 0 if not provided
+        favoriteRecipes: user.favoriteRecipes || 0, // Default to 0 if not provided
+        followers: user.followers.length,
+        following: user.following.length,
+      }))
+    );
+    console.log('Users seeded successfully.');
 
     // Load and insert Ingredients
     const ingredientsData = JSON.parse(
@@ -45,6 +66,7 @@ const seedData = async () => {
         img: ingredient.img,
       }))
     );
+    console.log('Ingredients seeded successfully.');
 
     // Load and insert Recipes
     const recipesData = JSON.parse(
@@ -64,6 +86,7 @@ const seedData = async () => {
         areaId: rec.area,
         categoryId: rec.category,
       });
+      console.log(`Recipe ${recipe.id} seeded successfully.`);
 
       // Associate Ingredients
       for (const ing of rec.ingredients) {
@@ -73,7 +96,9 @@ const seedData = async () => {
           measure: ing.measure,
         });
       }
+      console.log(`Ingredients for recipe ${recipe.id} seeded successfully.`);
     }
+    console.log('Recipes seeded successfully.');
 
     console.log('Data seeded successfully.');
     process.exit(0);
