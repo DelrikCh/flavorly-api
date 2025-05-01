@@ -1,3 +1,5 @@
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
+
 const currentUser = async (req, res) => {
   const user = req.user;
   res.status(200).json({
@@ -10,4 +12,4 @@ const currentUser = async (req, res) => {
   });
 };
 
-export default currentUser;
+export default ctrlWrapper(currentUser);
