@@ -1,16 +1,23 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db/index.js';
 
-const Category = sequelize.define('Category', {
-  id: {
-    type: DataTypes.STRING,
-    primaryKey: true,
+const Category = sequelize.define(
+  'Category',
+  {
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
+  {
     tableName: 'categories',
     timestamps: false,
   }
