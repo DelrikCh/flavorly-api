@@ -85,10 +85,10 @@ if(UserId is the same as logged in user?) then (yes)
                 "avatar": "avatarLink",
                 name: "name",
                 email: "email",
-                addedRecipesCount: 0,
-                favoriteRecipesCount: 0,
-                followersCount: [],
-                followingCount: []
+                addedRecipes: 0,
+                favoriteRecipes: 0,
+                followers: [],
+                following: []
         }}
     end note
 else (no)
@@ -101,8 +101,8 @@ else (no)
                 "avatar": "avatarLink",
                 name: "name",
                 email: "email",
-                addedRecipesCount: 0,
-                followersCount: []
+                addedRecipes: 0,
+                followers: []
         }}
     end note
 endif
