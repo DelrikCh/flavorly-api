@@ -1,8 +1,13 @@
-import { DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../db/index.js';
 
-const User = sequelize.define(
-  'User',
+class User extends Model {
+  static associate(_) {
+    // Associations are defined in Recipe and Ingredient models
+  }
+}
+
+User.init(
   {
     id: {
       type: DataTypes.STRING,
@@ -43,6 +48,8 @@ const User = sequelize.define(
     },
   },
   {
+    sequelize,
+    modelName: 'User',
     tableName: 'users',
     timestamps: false,
   }

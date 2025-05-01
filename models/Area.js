@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db/index.js';
 
-const Category = sequelize.define('Category', {
+const Area = sequelize.define('Area', {
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -10,10 +10,10 @@ const Category = sequelize.define('Category', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-    tableName: 'categories',
+},{
+    tableName: 'areas',
     timestamps: false,
   }
 );
 
-export default Category;
+export default Area;
