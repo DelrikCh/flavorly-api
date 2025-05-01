@@ -11,12 +11,13 @@ import userLoginSchema from '../schemas/users/userLoginSchema.js';
 // Controller functions
 import registerUser from '../controllers/users/registerUser.js';
 import loginUser from '../controllers/users/loginUser.js';
+import currentUser from '../controllers/users/currentUser.js';
 
 const usersRouter = express.Router();
 
 usersRouter.post('/register', validateBody(userRegisterSchema), registerUser);
 usersRouter.post('/login', validateBody(userLoginSchema), loginUser);
-// usersRouter.get('/current', currentUser);
+usersRouter.get('/current', authenticate, currentUser);
 // usersRouter.get('/details', userDetails);
 // usersRouter.patch('/avatar', updateAvatar);
 // usersRouter.get('/followers', getFollowers);
