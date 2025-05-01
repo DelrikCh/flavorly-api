@@ -11,9 +11,9 @@ class Favorite extends Model {
 Favorite.init(
   {
     id: {
-			type: DataTypes.UUID,
-			defaultValue: DataTypes.UUIDV4,
-			primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     userId: {
       type: DataTypes.STRING,
