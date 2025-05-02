@@ -1,5 +1,5 @@
 import HttpError from '../../helpers/HttpError.js';
-import models from '../../models/index.js';
+import models, { sequelize } from '../../models/index.js';
 
 const removeUserFavorite = async (userId, recipeId) => {
   // Start a transaction
