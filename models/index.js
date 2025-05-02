@@ -6,6 +6,7 @@ import Recipe from './Recipe.js';
 import RecipeIngredient from './RecipeIngredient.js';
 import User from './User.js';
 import Testimonial from './Testimonial.js';
+import Follow from './Follow.js';
 
 const models = {
   Area,
@@ -15,11 +16,13 @@ const models = {
   RecipeIngredient,
   User,
   Testimonial,
+  Follow,
 };
 
 // Initialize associations
 Object.values(models).forEach((model) => {
   if (model.associate) {
+    console.log(`Associating model: ${model.name}`);
     model.associate(models);
   }
 });

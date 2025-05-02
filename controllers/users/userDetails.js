@@ -20,10 +20,16 @@ const anotherUserFields = [
   'addedRecipes',
   'followers',
 ];
+const fieldAlias = {
+  followers: 'followersCount',
+  following: 'followingCount',
+};
 
 const pickFields = (obj, fields) =>
   fields.reduce((acc, key) => {
-    if (key in obj) acc[key] = obj[key];
+    if (key in obj) {
+      acc[fieldAlias[key] || key] = obj[key];
+    }
     return acc;
   }, {});
 

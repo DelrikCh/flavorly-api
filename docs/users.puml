@@ -87,8 +87,8 @@ if(UserId is the same as logged in user?) then (yes)
                 email: "email",
                 addedRecipes: 0,
                 favoriteRecipes: 0,
-                followers: [],
-                following: []
+                followersCount: 0,
+                followingCount: 0
         }}
     end note
 else (no)
@@ -102,7 +102,7 @@ else (no)
                 name: "name",
                 email: "email",
                 addedRecipes: 0,
-                followers: []
+                followersCount: 0
         }}
     end note
 endif
