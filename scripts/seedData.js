@@ -48,11 +48,21 @@ const seedData = async () => {
         avatar: user.avatar,
         addedRecipes: user.addedRecipes || 0, // Default to 0 if not provided
         favoriteRecipes: user.favoriteRecipes || 0, // Default to 0 if not provided
-        followers: user.followers.length,
-        following: user.following.length,
+        followersCount: user.followers.length,
+        followingCount: user.following.length,
       }))
     );
     console.log('Users seeded successfully.');
+    // Iterate over users to create follows
+    for (const user of usersData) {
+      for (const followeeId of user.following) {
+        await models.Follow.create({
+          followerId: user._id.$oid,
+          followeeId: followeeId.$oid,
+        });
+      }
+    }
+    console.log('Follows seeded successfully.');
 
     // Load and insert Ingredients
     const ingredientsData = JSON.parse(

@@ -3,8 +3,15 @@ import { ObjectId } from 'bson';
 import { sequelize } from '../db/index.js';
 
 class User extends Model {
-  static associate(_) {
-    // Associations are defined in Recipe and Ingredient models
+  static associate(models) {
+    User.hasMany(models.Follow, {
+      foreignKey: 'followerId',
+      as: 'followings',
+    });
+    User.hasMany(models.Follow, {
+      foreignKey: 'followeeId',
+      as: 'followers',
+    });
   }
 }
 
@@ -42,12 +49,12 @@ User.init(
       allowNull: false,
       defaultValue: 0,
     },
-    followers: {
+    followersCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    following: {
+    followingCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
