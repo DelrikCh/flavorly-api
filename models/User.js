@@ -10,6 +10,14 @@ class User extends Model {
       foreignKey: 'userId',
       as: 'favorites',
     });
+    User.hasMany(models.Follow, {
+      foreignKey: 'followerId',
+      as: 'followings',
+    });
+    User.hasMany(models.Follow, {
+      foreignKey: 'followingId',
+      as: 'followers',
+    });
   }
 }
 
@@ -47,12 +55,12 @@ User.init(
       allowNull: false,
       defaultValue: 0,
     },
-    followers: {
+    followersCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    following: {
+    followingCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,

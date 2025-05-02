@@ -1,15 +1,13 @@
 import loginUserService from '../../services/users/loginUser.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  try {
-    const result = await loginUserService({ email, password });
-    return res.status(200).json({
-      result,
-    });
-  } catch (error) {
-    return res.status(error.status).json({ message: error.message });
-  }
+
+  const result = await loginUserService({ email, password });
+  return res.status(200).json({
+    result,
+  });
 };
 
-export default loginUser;
+export default ctrlWrapper(loginUser);
