@@ -9,8 +9,8 @@ class Follow extends Model {
       as: 'follower',
     });
     Follow.belongsTo(models.User, {
-      foreignKey: 'followeeId',
-      as: 'followee',
+      foreignKey: 'followingId',
+      as: 'following',
     });
   }
 }
@@ -26,7 +26,7 @@ Follow.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    followeeId: {
+    followingId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -38,7 +38,7 @@ Follow.init(
     indexes: [
       {
         unique: true,
-        fields: ['followerId', 'followeeId'],
+        fields: ['followerId', 'followingId'],
       },
     ],
   }

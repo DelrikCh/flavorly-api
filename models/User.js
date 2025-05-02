@@ -9,7 +9,7 @@ class User extends Model {
       as: 'followings',
     });
     User.hasMany(models.Follow, {
-      foreignKey: 'followeeId',
+      foreignKey: 'followingId',
       as: 'followers',
     });
   }

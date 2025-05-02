@@ -55,10 +55,10 @@ const seedData = async () => {
     console.log('Users seeded successfully.');
     // Iterate over users to create follows
     for (const user of usersData) {
-      for (const followeeId of user.following) {
+      for (const followingId of user.following) {
         await models.Follow.create({
           followerId: user._id.$oid,
-          followeeId: followeeId.$oid,
+          followingId: followingId.$oid,
         });
       }
     }

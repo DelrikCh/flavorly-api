@@ -13,7 +13,7 @@ const followUser = async (currentUserId, userId) => {
   const existingFollow = await Follow.findOne({
     where: {
       followerId: currentUserId,
-      followeeId: userId,
+      followingId: userId,
     },
   });
   if (existingFollow) {
@@ -27,7 +27,7 @@ const followUser = async (currentUserId, userId) => {
     await Follow.create(
       {
         followerId: currentUserId,
-        followeeId: userId,
+        followingId: userId,
       },
       { transaction }
     );
