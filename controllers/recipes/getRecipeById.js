@@ -1,17 +1,14 @@
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 import getRecipe from '../../services/recipes/getRecipe.js';
 
-const getRecipeById = async (req, res, next) => {
-  try {
-    const recipe = await getRecipe(req.params.id);
+const getRecipeById = async (req, res) => {
+  const recipe = await getRecipe(req.params.id);
 
-    if (!recipe) {
-      return res.status(404).json({ message: 'Not found' });
-    }
-
-    res.json(recipe);
-  } catch (err) {
-    next(err);
+  if (!recipe) {
+    return res.status(404).json({ message: 'Not found' });
   }
+
+  res.json(recipe);
 };
 
-export default getRecipeById;
+export default ctrlWrapper(getRecipeById);

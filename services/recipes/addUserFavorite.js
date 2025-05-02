@@ -1,22 +1,36 @@
-import Recipe from '../../models/Recipe.js';
-import Favorite from '../../models/Favorite.js';
+import HttpError from '../../helpers/HttpError.js';
+import models, { sequelize } from '../../models/index.js';
 
 const addUserFavorite = async (userId, recipeId) => {
-  const deleted = await Favorite.destroy({
-    where: {
-      userId: userId,
-      recipeId: recipeId,
-    },
-  });
+  // Start a transaction
+  const transaction = await sequelize.transaction();
 
-  if (deleted) {
-    await Recipe.decrement('favoritesCount', {
-      by: 1,
-      where: { id: recipeId },
+  try {
+    const [_, created] = await models.Favorite.findOrCreate({
+      where: {
+        userId: userId,
+        recipeId: recipeId,
+      },
+      transaction,
     });
-  }
 
-  return;
+    if (created) {
+      await models.Recipe.increment('favoritesCount', {
+        by: 1,
+        where: { id: recipeId },
+        transaction,
+      });
+    }
+
+    // Commit the transaction
+    await transaction.commit();
+  } catch (error) {
+    console.error('Failed to add favorite:', error);
+
+    await transaction.rollback();
+
+    throw HttpError(500, 'Internal server error');
+  }
 };
 
 export default addUserFavorite;

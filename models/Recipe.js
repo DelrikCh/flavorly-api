@@ -1,4 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
+import { ObjectId } from 'bson';
 import { sequelize } from '../db/index.js';
 
 class Recipe extends Model {
@@ -20,9 +21,9 @@ class Recipe extends Model {
 Recipe.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       primaryKey: true,
+      defaultValue: () => new ObjectId().toString(),
     },
     ownerId: DataTypes.STRING,
     title: DataTypes.STRING,

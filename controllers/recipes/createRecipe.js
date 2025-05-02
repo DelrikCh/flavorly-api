@@ -1,16 +1,13 @@
-import models from '../../models/index.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
+import addRecipe from '../../services/recipes/createRecipe.js';
 
-const createRecipe = async (req, res, next) => {
-  try {
-    const newRecipe = await models.Recipe.create({
-      ...req.body,
-      ownerId: req.user.id,
-    });
+const createRecipe = async (req, res) => {
+  const newRecipe = await addRecipe({
+    ...req.body,
+    ownerId: req.user.id,
+  });
 
-    res.status(201).json(newRecipe);
-  } catch (err) {
-    next(err);
-  }
+  res.status(201).json(newRecipe);
 };
 
-export default createRecipe;
+export default ctrlWrapper(createRecipe);
