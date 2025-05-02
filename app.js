@@ -9,6 +9,7 @@ import categoriesRouter from './routes/categoriesRouter.js';
 import ingredientsRouter from './routes/ingredientsRouter.js';
 import areasRouter from './routes/areasRouter.js';
 import usersRouter from './routes/usersRouter.js';
+import recipesRouter from './routes/recipesRouter.js';
 import testimonialsRouter from './routes/testimonialsRouter.js';
 
 await connectDB();
@@ -24,6 +25,7 @@ app.use('/api/categories', categoriesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/areas', areasRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/recipes', recipesRouter);
 app.use('/api/testimonials', testimonialsRouter);
 
 app.use((_, res) => {

@@ -103,14 +103,14 @@ const seedData = async () => {
         id: rec._id.$oid,
         ownerId: rec.owner?.$oid,
         title: rec.title,
-        instructions: rec.instructions,
         description: rec.description,
+        area: rec.area,
+        category: rec.category,
+        instructions: rec.instructions,
         thumb: rec.thumb,
         time: rec.time,
         createdAt: new Date(parseInt(rec.createdAt.$date.$numberLong)),
         updatedAt: new Date(parseInt(rec.updatedAt.$date.$numberLong)),
-        areaId: rec.area,
-        categoryId: rec.category,
       });
       console.log(`Recipe ${recipe.id} seeded successfully.`);
 

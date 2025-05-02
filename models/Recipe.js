@@ -1,4 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
+import { ObjectId } from 'bson';
 import { sequelize } from '../db/index.js';
 
 class Recipe extends Model {
@@ -9,6 +10,11 @@ class Recipe extends Model {
       foreignKey: 'recipeId',
       otherKey: 'ingredientId',
     });
+    Recipe.belongsToMany(models.User, {
+      through: models.Favorite,
+      foreignKey: 'recipeId',
+      as: 'favoritedBy',
+    });
   }
 }
 
@@ -17,8 +23,16 @@ Recipe.init(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
+      defaultValue: () => new ObjectId().toString(),
     },
-    ownerId: DataTypes.STRING,
+    ownerId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+    },
     title: DataTypes.STRING,
     area: DataTypes.STRING,
     category: DataTypes.STRING,
@@ -26,8 +40,8 @@ Recipe.init(
     description: DataTypes.TEXT,
     thumb: DataTypes.STRING,
     time: DataTypes.STRING,
-    rating: {
-      type: DataTypes.FLOAT,
+    favoritesCount: {
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },

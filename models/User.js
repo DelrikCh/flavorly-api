@@ -4,6 +4,12 @@ import { sequelize } from '../db/index.js';
 
 class User extends Model {
   static associate(models) {
+    // Associations are defined in Recipe and Ingredient models
+    User.belongsToMany(models.Recipe, {
+      through: models.Favorite,
+      foreignKey: 'userId',
+      as: 'favorites',
+    });
     User.hasMany(models.Follow, {
       foreignKey: 'followerId',
       as: 'followings',

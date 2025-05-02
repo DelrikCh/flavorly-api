@@ -1,7 +1,7 @@
-import Ingredient from '../../models/Ingredient.js';
+import models from '../../models/index.js';
 
 const getAllIngredients = async () => {
-  return await Ingredient.findAll();
+  return await models.Ingredient.findAll();
 };
 
 export default getAllIngredients;
