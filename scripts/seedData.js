@@ -68,6 +68,22 @@ const seedData = async () => {
     );
     console.log('Ingredients seeded successfully.');
 
+    // Load and insert Testimonials
+    const testimonialsData = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '../data/testimonials.json'),
+        'utf-8'
+      )
+    );
+    await models.Testimonial.bulkCreate(
+      testimonialsData.map((testimonial) => ({
+        id: testimonial._id.$oid,
+        ownerId: testimonial.owner.$oid,
+        testimonial: testimonial.testimonial,
+      }))
+    );
+    console.log('Testimonials seeded successfully.');
+
     // Load and insert Recipes
     const recipesData = JSON.parse(
       fs.readFileSync(path.join(__dirname, '../data/recipes.json'), 'utf-8')

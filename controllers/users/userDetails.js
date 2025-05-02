@@ -1,4 +1,5 @@
 import findUser from '../../services/users/findUser.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 
 const currentUserFields = [
   'id',
@@ -44,4 +45,4 @@ const userDetails = async (req, res) => {
   });
 };
 
-export default userDetails;
+export default ctrlWrapper(userDetails);
