@@ -1,12 +1,9 @@
 import getAllAreas from '../../services/areas/areasServices.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 
-const listAreas = async (req, res, next) => {
-  try {
-    const areas = await getAllAreas();
-    res.status(200).json(areas);
-  } catch (error) {
-    next(error);
-  }
+const listAreas = async (req, res) => {
+  const areas = await getAllAreas();
+  res.status(200).json(areas);
 };
 
-export default listAreas;
+export default ctrlWrapper(listAreas);
