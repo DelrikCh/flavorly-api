@@ -16,6 +16,7 @@ import currentUser from '../controllers/users/currentUser.js';
 import userDetails from '../controllers/users/userDetails.js';
 import logoutUser from '../controllers/users/logoutUser.js';
 import followUser from '../controllers/users/followUser.js';
+import unfollowUser from '../controllers/users/unfollowUser.js';
 import getFollowers from '../controllers/users/getFollowers.js';
 import getFollowing from '../controllers/users/getFollowings.js';
 
@@ -34,7 +35,12 @@ usersRouter.post(
   validateBody(followSchema),
   followUser
 );
-// usersRouter.delete('/unfollow', unfollowUser);
+usersRouter.delete(
+  '/unfollow',
+  authenticate,
+  validateBody(followSchema),
+  unfollowUser
+);
 usersRouter.post('/logout', authenticate, logoutUser);
 
 export default usersRouter;
