@@ -29,18 +29,8 @@ usersRouter.get('/details', authenticate, userDetails);
 // usersRouter.patch('/avatar', updateAvatar);
 usersRouter.get('/followers', authenticate, getFollowers);
 usersRouter.get('/following', authenticate, getFollowing);
-usersRouter.post(
-  '/follow',
-  authenticate,
-  validateBody(followSchema),
-  followUser
-);
-usersRouter.delete(
-  '/unfollow',
-  authenticate,
-  validateBody(followSchema),
-  unfollowUser
-);
+usersRouter.post('/:id/follow', authenticate, followUser);
+usersRouter.delete('/:id/unfollow', authenticate, unfollowUser);
 usersRouter.post('/logout', authenticate, logoutUser);
 
 export default usersRouter;

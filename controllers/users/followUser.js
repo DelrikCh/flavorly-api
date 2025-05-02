@@ -4,7 +4,7 @@ import followUserService from '../../services/users/followUser.js';
 
 const followUser = async (req, res) => {
   const { id: currentUserId } = req.user;
-  const { userId } = req.body;
+  const { id: userId } = req.params;
   if (!userId) {
     throw HttpError(400, 'Missing required field: userId');
   }
