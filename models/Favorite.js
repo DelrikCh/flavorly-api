@@ -3,8 +3,8 @@ import { sequelize } from '../db/index.js';
 
 class Favorite extends Model {
   static associate(models) {
-    Favorite.belongsTo(models.User, { foreignKey: 'userId' });
-    Favorite.belongsTo(models.Recipe, { foreignKey: 'recipeId' });
+    Favorite.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Favorite.belongsTo(models.Recipe, { foreignKey: 'recipeId', as: 'recipe' });
   }
 }
 

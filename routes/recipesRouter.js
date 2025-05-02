@@ -18,20 +18,18 @@ import recipeSchema from '../schemas/recipes/createRecipeSchema.js';
 
 const recipesRouter = express.Router();
 
-// Public routes
 recipesRouter.get('/', listRecipes);
 recipesRouter.get('/popular', listPopularRecipes);
+
+recipesRouter.get('/my', authenticate, listMyRecipes);
+recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
+
+// Generic route must come last
 recipesRouter.get('/:id', getRecipeById);
 
-// Private routes (require auth)
-recipesRouter.use(authenticate);
-
-recipesRouter.post('/', validateBody(recipeSchema), createRecipe);
-recipesRouter.delete('/:id', deleteRecipe);
-recipesRouter.get('/my', listMyRecipes);
-
-recipesRouter.post('/:id/favorite', addToFavorites);
-recipesRouter.delete('/:id/favorite', removeFromFavorites);
-recipesRouter.get('/favorites', listFavoriteRecipes);
+recipesRouter.post('/', authenticate, validateBody(recipeSchema), createRecipe);
+recipesRouter.delete('/:id',authenticate, deleteRecipe);
+recipesRouter.post('/:id/favorite', authenticate, addToFavorites);
+recipesRouter.delete('/:id/favorite', authenticate, removeFromFavorites);
 
 export default recipesRouter;

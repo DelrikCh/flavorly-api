@@ -5,13 +5,17 @@ const listFavoriteRecipes = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const offset = (page - 1) * limit;
 
-  const favorites = getFavoriteRecipes({
+  const result = await getFavoriteRecipes({
     ownerId: req.user.id,
     limit: parseInt(limit),
     offset,
   });
 
-  res.json(favorites);
+  res.json({
+    total: result.count,
+    page: +page,
+    favorites: result.rows,
+  });
 };
 
 export default ctrlWrapper(listFavoriteRecipes);
