@@ -25,7 +25,14 @@ Recipe.init(
       primaryKey: true,
       defaultValue: () => new ObjectId().toString(),
     },
-    ownerId: DataTypes.STRING,
+    ownerId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+    },
     title: DataTypes.STRING,
     area: DataTypes.STRING,
     category: DataTypes.STRING,
