@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 
 import { connectDB } from './db/index.js';
+import './models/index.js';
 import categoriesRouter from './routes/categoriesRouter.js';
 import ingredientsRouter from './routes/ingredientsRouter.js';
 import areasRouter from './routes/areasRouter.js';

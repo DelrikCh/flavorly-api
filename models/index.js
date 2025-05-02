@@ -22,6 +22,7 @@ const models = {
 // Initialize associations
 Object.values(models).forEach((model) => {
   if (model.associate) {
+    console.log(`Associating model: ${model.name}`);
     model.associate(models);
   }
 });

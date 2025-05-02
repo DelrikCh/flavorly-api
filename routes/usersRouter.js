@@ -16,6 +16,7 @@ import currentUser from '../controllers/users/currentUser.js';
 import userDetails from '../controllers/users/userDetails.js';
 import logoutUser from '../controllers/users/logoutUser.js';
 import followUser from '../controllers/users/followUser.js';
+import getFollowers from '../controllers/users/getFollowers.js';
 
 const usersRouter = express.Router();
 
@@ -24,7 +25,7 @@ usersRouter.post('/login', validateBody(userLoginSchema), loginUser);
 usersRouter.get('/current', authenticate, currentUser);
 usersRouter.get('/details', authenticate, userDetails);
 // usersRouter.patch('/avatar', updateAvatar);
-// usersRouter.get('/followers', getFollowers);
+usersRouter.get('/followers', authenticate, getFollowers);
 // usersRouter.get('/following', getFollowing);
 usersRouter.post(
   '/follow',
