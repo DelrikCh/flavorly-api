@@ -7,6 +7,7 @@ import authenticate from '../middlewares/authenticate.js';
 // Schemas
 import userRegisterSchema from '../schemas/users/userRegisterSchema.js';
 import userLoginSchema from '../schemas/users/userLoginSchema.js';
+import followSchema from '../schemas/users/followSchema.js';
 
 // Controller functions
 import registerUser from '../controllers/users/registerUser.js';
@@ -14,6 +15,7 @@ import loginUser from '../controllers/users/loginUser.js';
 import currentUser from '../controllers/users/currentUser.js';
 import userDetails from '../controllers/users/userDetails.js';
 import logoutUser from '../controllers/users/logoutUser.js';
+import followUser from '../controllers/users/followUser.js';
 
 const usersRouter = express.Router();
 
@@ -24,7 +26,12 @@ usersRouter.get('/details', authenticate, userDetails);
 // usersRouter.patch('/avatar', updateAvatar);
 // usersRouter.get('/followers', getFollowers);
 // usersRouter.get('/following', getFollowing);
-// usersRouter.post('/follow', followUser);
+usersRouter.post(
+  '/follow',
+  authenticate,
+  validateBody(followSchema),
+  followUser
+);
 // usersRouter.delete('/unfollow', unfollowUser);
 usersRouter.post('/logout', authenticate, logoutUser);
 
