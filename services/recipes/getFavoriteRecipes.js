@@ -7,7 +7,6 @@ const getFavoriteRecipes = async ({ ownerId, limit, offset }) => {
       {
         model: models.Recipe,
         as: 'recipe',
-        attributes: [], 
       },
     ],
     limit,
@@ -20,7 +19,7 @@ const getFavoriteRecipes = async ({ ownerId, limit, offset }) => {
 
   return {
     count,
-    recipes,
+    rows: recipes,
   };
 };
 
