@@ -1,23 +1,30 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../db/index.js';
 
-const Testimonial = sequelize.define(
-  'Testimonial',
+class Testimonial extends Model {
+  static associate(models) {
+    Testimonial.belongsTo(models.User, { as: 'owner', foreignKey: 'ownerId' });
+  }
+}
+
+Testimonial.init(
   {
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
     },
-    owner: {
+    ownerId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    testimonials: {
-      type: DataTypes.STRING,
+    testimonial: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   {
+    sequelize,
+    modelName: 'Testimonial',
     tableName: 'testimonials',
     timestamps: false,
   }
