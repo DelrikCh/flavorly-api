@@ -1,20 +1,20 @@
 import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 import HttpError from '../../helpers/HttpError.js';
-import followUserService from '../../services/users/followUser.js';
+import unfollowUserService from '../../services/users/unfollowUser.js';
 
-const followUser = async (req, res) => {
+const unfollowUser = async (req, res) => {
   const { id: currentUserId } = req.user;
   const { id: userId } = req.params;
   if (!userId) {
     throw HttpError(400, 'Missing required field: userId');
   }
   if (currentUserId === userId) {
-    throw HttpError(400, 'You cannot follow yourself');
+    throw HttpError(400, "You can't unfollow yourself");
   }
-  await followUserService(currentUserId, userId);
+  await unfollowUserService(currentUserId, userId);
   res.status(200).json({
-    message: 'You are now following this user',
+    message: 'You are not following this user anymore',
   });
 };
 
-export default ctrlWrapper(followUser);
+export default ctrlWrapper(unfollowUser);

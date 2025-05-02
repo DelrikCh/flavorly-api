@@ -16,6 +16,7 @@ import currentUser from '../controllers/users/currentUser.js';
 import userDetails from '../controllers/users/userDetails.js';
 import logoutUser from '../controllers/users/logoutUser.js';
 import followUser from '../controllers/users/followUser.js';
+import unfollowUser from '../controllers/users/unfollowUser.js';
 import getFollowers from '../controllers/users/getFollowers.js';
 import getFollowing from '../controllers/users/getFollowings.js';
 
@@ -23,18 +24,13 @@ const usersRouter = express.Router();
 
 usersRouter.post('/register', validateBody(userRegisterSchema), registerUser);
 usersRouter.post('/login', validateBody(userLoginSchema), loginUser);
+usersRouter.post('/logout', authenticate, logoutUser);
 usersRouter.get('/current', authenticate, currentUser);
 usersRouter.get('/details', authenticate, userDetails);
 // usersRouter.patch('/avatar', updateAvatar);
 usersRouter.get('/followers', authenticate, getFollowers);
 usersRouter.get('/following', authenticate, getFollowing);
-usersRouter.post(
-  '/follow',
-  authenticate,
-  validateBody(followSchema),
-  followUser
-);
-// usersRouter.delete('/unfollow', unfollowUser);
-usersRouter.post('/logout', authenticate, logoutUser);
+usersRouter.post('/:id/follow', authenticate, followUser);
+usersRouter.delete('/:id/unfollow', authenticate, unfollowUser);
 
 export default usersRouter;
