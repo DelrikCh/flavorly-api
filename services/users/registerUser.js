@@ -16,7 +16,7 @@ const registerUser = async (data) => {
     return savedUser;
   } catch (error) {
     console.error('Error registering user:', error);
-    throw new HttpError(500, 'Error registering user');
+    throw HttpError(500, 'Error registering user');
   }
 };
 

@@ -6,10 +6,10 @@ const followUser = async (req, res) => {
   const { id: currentUserId } = req.user;
   const { userId } = req.body;
   if (!userId) {
-    throw new HttpError(400, 'Missing required field: userId');
+    throw HttpError(400, 'Missing required field: userId');
   }
   if (currentUserId === userId) {
-    throw new HttpError(400, 'You cannot follow yourself');
+    throw HttpError(400, 'You cannot follow yourself');
   }
   await followUserService(currentUserId, userId);
   res.status(200).json({
