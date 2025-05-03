@@ -3,6 +3,7 @@ import path from 'path';
 import HttpError from '../helpers/HttpError.js';
 
 const uploadsDir = path.resolve('temp');
+const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
 const storage = multer.diskStorage({
   destination: uploadsDir,
@@ -14,9 +15,9 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  const extension = file.originalname.split('.').pop();
-  if (extension === 'exe') {
-    return cb(HttpError(400, '.exe files are not allowed'));
+  const extension = file.originalname.split('.').pop().toLowerCase();
+  if (!allowedExtensions.includes(extension)) {
+    return cb(HttpError(400, 'Дозволені лише .jpg, .jpeg, .png файли'));
   }
   cb(null, true);
 };

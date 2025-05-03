@@ -1,11 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 import * as Jimp from 'jimp';
-import { fileURLToPath } from 'url';
-import HttpError from '../../helpers/HttpError.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import HttpError from '../../helpers/HttpError.js';
 
 const updateAvatar = async (req, res, next) => {
   if (!req.file) {
@@ -13,14 +10,14 @@ const updateAvatar = async (req, res, next) => {
   }
 
   const { path: tempPath, filename } = req.file;
-  const avatarsDir = path.resolve(__dirname, '../../public/avatars');
+  const avatarsDir = path.resolve('public', 'avatars');
 
   try {
     await fs.mkdir(avatarsDir, { recursive: true });
 
     const finalPath = path.join(avatarsDir, filename);
 
-    const image = await Jimp.read(tempPath);
+    const image = await Jimp.Jimp.read(tempPath);
     await image.resize(250, 250).writeAsync(finalPath);
 
     await fs.unlink(tempPath);
