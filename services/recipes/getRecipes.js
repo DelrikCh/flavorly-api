@@ -5,7 +5,14 @@ const getRecipes = async ({ category, ingredient, area, offset, limit }) => {
   if (category) where.category = category;
   if (area) where.area = area;
 
-  const include = [];
+  const include = [
+    {
+      model: models.User,
+      as: 'owner',
+      attributes: ['name', 'avatar'],
+    },
+  ];
+
   if (ingredient) {
     include.push({
       model: models.Ingredient,
@@ -14,14 +21,13 @@ const getRecipes = async ({ category, ingredient, area, offset, limit }) => {
     });
   }
 
-  const result = await models.Recipe.findAndCountAll({
+  return await models.Recipe.findAndCountAll({
     where,
     include,
     offset,
     limit,
+    order: [['createdAt', 'DESC']],
   });
-
-  return result;
 };
 
 export default getRecipes;
