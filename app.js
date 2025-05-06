@@ -11,6 +11,8 @@ import areasRouter from './routes/areasRouter.js';
 import usersRouter from './routes/usersRouter.js';
 import recipesRouter from './routes/recipesRouter.js';
 import testimonialsRouter from './routes/testimonialsRouter.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './docs/swagger.js';
 
 await connectDB();
 
@@ -21,6 +23,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(path.resolve(), 'public')));
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/categories', categoriesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/areas', areasRouter);
