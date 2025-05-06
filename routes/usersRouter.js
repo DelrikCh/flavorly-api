@@ -26,23 +26,23 @@ const usersRouter = express.Router();
 usersRouter.post('/register', validateBody(userRegisterSchema), registerUser);
 usersRouter.post('/login', validateBody(userLoginSchema), loginUser);
 usersRouter.post('/logout', authenticate, logoutUser);
-
-usersRouter.get('/current', authenticate, currentUser);
-usersRouter.get('/details', authenticate, userDetails);
-usersRouter.patch(
-  '/avatar',
-  authenticate,
-  upload.single('avatar'),
-  updateAvatar
-);
-
-usersRouter.get('/followers', authenticate, getFollowers);
-usersRouter.get('/following', authenticate, getFollowing);
 usersRouter.post(
   '/follow',
   authenticate,
   validateBody(followSchema),
   followUser
+);
+
+usersRouter.get('/current', authenticate, currentUser);
+usersRouter.get('/details', authenticate, userDetails);
+usersRouter.get('/followers', authenticate, getFollowers);
+usersRouter.get('/following', authenticate, getFollowing);
+
+usersRouter.patch(
+  '/avatar',
+  authenticate,
+  upload.single('avatar'),
+  updateAvatar
 );
 
 export default usersRouter;
