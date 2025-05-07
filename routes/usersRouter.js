@@ -3,6 +3,7 @@ import express from 'express';
 // Helper functions
 import validateBody from '../helpers/validateBody.js';
 import authenticate from '../middlewares/authenticate.js';
+import upload from '../middlewares/upload.js';
 
 // Schemas
 import userRegisterSchema from '../schemas/users/userRegisterSchema.js';
@@ -18,6 +19,7 @@ import followUser from '../controllers/users/followUser.js';
 import unfollowUser from '../controllers/users/unfollowUser.js';
 import getFollowers from '../controllers/users/getFollowers.js';
 import getFollowing from '../controllers/users/getFollowings.js';
+import updateAvatar from '../controllers/users/updateAvatar.js';
 
 const usersRouter = express.Router();
 
@@ -154,7 +156,12 @@ usersRouter.get('/current', authenticate, currentUser);
  */
 usersRouter.get('/details', authenticate, userDetails);
 
-// usersRouter.patch('/avatar', updateAvatar);
+usersRouter.patch(
+  '/avatar',
+  authenticate,
+  upload.single('avatar'),
+  updateAvatar
+);
 
 /**
  * @swagger
