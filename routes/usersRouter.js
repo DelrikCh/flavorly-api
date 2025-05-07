@@ -218,7 +218,7 @@ usersRouter.patch(
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/followers', authenticate, getFollowers);
+usersRouter.get('/followers/:userId', authenticate, getFollowers);
 
 /**
  * @swagger
