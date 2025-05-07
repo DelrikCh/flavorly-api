@@ -156,6 +156,36 @@ usersRouter.get('/current', authenticate, currentUser);
  */
 usersRouter.get('/details', authenticate, userDetails);
 
+/**
+ * @swagger
+ * /users/avatar:
+ *   patch:
+ *     summary: Update user avatar
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *             required:
+ *               - avatar
+ *     responses:
+ *       200:
+ *         description: Avatar updated successfully
+ *       400:
+ *         description: Invalid file type or size
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
 usersRouter.patch(
   '/avatar',
   authenticate,
