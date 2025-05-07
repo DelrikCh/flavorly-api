@@ -35,7 +35,7 @@ const pickFields = (obj, fields) =>
 
 const userDetails = async (req, res) => {
   const user = req.user;
-  const { userId } = req.query;
+  const { id: userId } = req.params;
   if (!userId) {
     return res.status(400).json({ message: 'User ID is required' });
   }
