@@ -288,6 +288,6 @@ usersRouter.post('/:id/follow', authenticate, followUser);
  *       401:
  *         description: Unauthorized
  */
-usersRouter.delete('/:id/unfollow', authenticate, unfollowUser);
+usersRouter.delete('/:id/follow', authenticate, unfollowUser);
 
 export default usersRouter;
