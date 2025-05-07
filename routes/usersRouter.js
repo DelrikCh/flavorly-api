@@ -131,15 +131,15 @@ usersRouter.get('/current', authenticate, currentUser);
 
 /**
  * @swagger
- * /users/details:
+ * /users/{id}/details:
  *   get:
  *     summary: Get details of a user
  *     tags: [Users]
  *     security:
  *      - bearerAuth: []
  *     parameters:
- *       - in: query
- *         name: userId
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
@@ -154,7 +154,7 @@ usersRouter.get('/current', authenticate, currentUser);
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/:userId/details', authenticate, userDetails);
+usersRouter.get('/:id/details', authenticate, userDetails);
 
 /**
  * @swagger
@@ -195,14 +195,14 @@ usersRouter.patch(
 
 /**
  * @swagger
- * /users/followers:
+ * /users/{id}/followers:
  *   get:
  *     summary: Get list of followers for a user
  *     tags: [Users]
  *     security:
  *      - bearerAuth: []
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: userId
  *         schema:
  *           type: string
@@ -218,7 +218,7 @@ usersRouter.patch(
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/:userId/followers', authenticate, getFollowers);
+usersRouter.get('/:id/followers', authenticate, getFollowers);
 
 /**
  * @swagger
@@ -265,7 +265,7 @@ usersRouter.post('/:id/follow', authenticate, followUser);
 
 /**
  * @swagger
- * /users/{id}/unfollow:
+ * /users/{id}/follow:
  *   delete:
  *     summary: Unfollow a user
  *     tags: [Users]
