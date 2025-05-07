@@ -154,7 +154,7 @@ usersRouter.get('/current', authenticate, currentUser);
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/details/:userId', authenticate, userDetails);
+usersRouter.get('/:userId/details', authenticate, userDetails);
 
 /**
  * @swagger
@@ -218,7 +218,7 @@ usersRouter.patch(
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/followers/:userId', authenticate, getFollowers);
+usersRouter.get('/:userId/followers', authenticate, getFollowers);
 
 /**
  * @swagger
