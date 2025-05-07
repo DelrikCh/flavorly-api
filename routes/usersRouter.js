@@ -154,7 +154,7 @@ usersRouter.get('/current', authenticate, currentUser);
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/details', authenticate, userDetails);
+usersRouter.get('/details/:userId', authenticate, userDetails);
 
 /**
  * @swagger
