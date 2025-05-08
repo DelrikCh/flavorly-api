@@ -12,7 +12,7 @@ const Category = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url: {
+    thumbnailUrl: {
       type: DataTypes.STRING,
       allowNull: false,
     },
