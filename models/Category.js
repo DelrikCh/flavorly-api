@@ -12,6 +12,10 @@ const Category = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    thumbnailUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     tableName: 'categories',
