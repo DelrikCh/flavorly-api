@@ -39,6 +39,16 @@ const createRecipe = async (payload) => {
       ingredientId: id,
       measure,
     }));
+    const ingredientIds = recipeIngredientsData.map((i) => i.ingredientId);
+    const ingredientsInDb = await models.Ingredient.findAll({
+      where: {
+        id: ingredientIds,
+      },
+      transaction,
+    });
+    if (ingredientsInDb.length !== ingredientIds.length) {
+      throw HttpError(400, 'Invalid ingredient ID(s)');
+    }
 
     await models.RecipeIngredient.bulkCreate(recipeIngredientsData, {
       transaction,
@@ -55,6 +65,9 @@ const createRecipe = async (payload) => {
 
     await transaction.rollback();
 
+    if (error instanceof Error) {
+      throw error;
+    }
     throw HttpError(500, 'Internal server error');
   }
 };

@@ -1,10 +1,12 @@
 import express from 'express';
 import authenticate from '../middlewares/authenticate.js';
+import upload from '../middlewares/upload.js';
 
 import listRecipes from '../controllers/recipes/listRecipes.js';
 import getRecipeById from '../controllers/recipes/getRecipeById.js';
 import listPopularRecipes from '../controllers/recipes/listPopularRecipes.js';
 
+import uploadThumb from '../controllers/recipes/uploadThumb.js';
 import createRecipe from '../controllers/recipes/createRecipe.js';
 import deleteRecipe from '../controllers/recipes/deleteRecipe.js';
 import listMyRecipes from '../controllers/recipes/listMyRecipes.js';
@@ -27,8 +29,9 @@ recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
 // Generic route must come last
 recipesRouter.get('/:id', getRecipeById);
 
+recipesRouter.post('/thumb', authenticate, upload.single('thumb'), uploadThumb);
 recipesRouter.post('/', authenticate, validateBody(recipeSchema), createRecipe);
-recipesRouter.delete('/:id',authenticate, deleteRecipe);
+recipesRouter.delete('/:id', authenticate, deleteRecipe);
 recipesRouter.post('/:id/favorite', authenticate, addToFavorites);
 recipesRouter.delete('/:id/favorite', authenticate, removeFromFavorites);
 
