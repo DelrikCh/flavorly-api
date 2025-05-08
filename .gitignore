@@ -6,3 +6,6 @@ node_modules/
 public/avatars/*.jpeg
 public/avatars/*.jpg
 public/avatars/*.png
+public/recipes/*.jpeg
+public/recipes/*.jpg
+public/recipes/*.png
