@@ -20,6 +20,7 @@ const loginUser = async (data) => {
     id: user.id,
     name: user.name,
     email: user.email,
+    avatar: `${process.env.BASE_URL}/${user.avatar}`,
     token,
   };
 };
