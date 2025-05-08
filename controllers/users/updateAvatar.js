@@ -15,7 +15,7 @@ const updateAvatar = async (req, res) => {
   const filename = `${id}_${originalname}`;
   const avatarPath = path.join('public', 'avatars', filename);
   await fs.rename(tempPath, avatarPath);
-  const avatarURL = path.join('avatars', filename);
+  const avatarURL = `${process.env.BASE_URL}/avatars/${filename}`;
   const updatedUser = await updateAvatarService(id, avatarURL);
   res.status(200).json({
     user: {
