@@ -1,5 +1,6 @@
 import registerUserService from '../../services/users/registerUser.js';
 import findUser from '../../services/users/findUser.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -19,4 +20,4 @@ const registerUser = async (req, res) => {
   });
 };
 
-export default registerUser;
+export default ctrlWrapper(registerUser);

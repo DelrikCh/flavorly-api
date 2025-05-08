@@ -49,11 +49,21 @@ const seedData = async () => {
         avatar: user.avatar,
         addedRecipes: user.addedRecipes || 0, // Default to 0 if not provided
         favoriteRecipes: user.favoriteRecipes || 0, // Default to 0 if not provided
-        followers: user.followers.length,
-        following: user.following.length,
+        followersCount: user.followers.length,
+        followingCount: user.following.length,
       }))
     );
     console.log('Users seeded successfully.');
+    // Iterate over users to create follows
+    for (const user of usersData) {
+      for (const followingId of user.following) {
+        await models.Follow.create({
+          followerId: user._id.$oid,
+          followingId: followingId.$oid,
+        });
+      }
+    }
+    console.log('Follows seeded successfully.');
 
     // Load and insert Ingredients
     const ingredientsData = JSON.parse(
@@ -69,6 +79,22 @@ const seedData = async () => {
     );
     console.log('Ingredients seeded successfully.');
 
+    // Load and insert Testimonials
+    const testimonialsData = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '../data/testimonials.json'),
+        'utf-8'
+      )
+    );
+    await models.Testimonial.bulkCreate(
+      testimonialsData.map((testimonial) => ({
+        id: testimonial._id.$oid,
+        ownerId: testimonial.owner.$oid,
+        testimonial: testimonial.testimonial,
+      }))
+    );
+    console.log('Testimonials seeded successfully.');
+
     // Load and insert Recipes
     const recipesData = JSON.parse(
       fs.readFileSync(path.join(__dirname, '../data/recipes.json'), 'utf-8')
@@ -78,14 +104,14 @@ const seedData = async () => {
         id: rec._id.$oid,
         ownerId: rec.owner?.$oid,
         title: rec.title,
-        instructions: rec.instructions,
         description: rec.description,
+        area: rec.area,
+        category: rec.category,
+        instructions: rec.instructions,
         thumb: rec.thumb,
         time: rec.time,
         createdAt: new Date(parseInt(rec.createdAt.$date.$numberLong)),
         updatedAt: new Date(parseInt(rec.updatedAt.$date.$numberLong)),
-        areaId: rec.area,
-        categoryId: rec.category,
       });
       console.log(`Recipe ${recipe.id} seeded successfully.`);
 

@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../db/index.js';
 
 class RecipeIngredient extends Model {
-  static associate(models) {
+  static associate(_models) {
     // Associations are defined in Recipe and Ingredient models
   }
 }

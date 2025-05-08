@@ -1,7 +1,7 @@
-import Category from '../../models/Category.js';
+import models from '../../models/index.js';
 
 const getCategories = async () => {
-  return await Category.findAll();
+  return await models.Category.findAll();
 };
 
 export default getCategories;

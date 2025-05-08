@@ -1,7 +1,7 @@
-import Area from '../../models/Area.js';
+import models from '../../models/index.js';
 
 const getAllAreas = async () => {
-  return await Area.findAll();
+  return await models.Area.findAll();
 };
 
 export default getAllAreas;

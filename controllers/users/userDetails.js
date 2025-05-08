@@ -1,4 +1,5 @@
 import findUser from '../../services/users/findUser.js';
+import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 
 const currentUserFields = [
   'id',
@@ -19,16 +20,22 @@ const anotherUserFields = [
   'addedRecipes',
   'followers',
 ];
+const fieldAlias = {
+  followers: 'followersCount',
+  following: 'followingCount',
+};
 
 const pickFields = (obj, fields) =>
   fields.reduce((acc, key) => {
-    if (key in obj) acc[key] = obj[key];
+    if (key in obj) {
+      acc[fieldAlias[key] || key] = obj[key];
+    }
     return acc;
   }, {});
 
 const userDetails = async (req, res) => {
   const user = req.user;
-  const { userId } = req.query;
+  const { id: userId } = req.params;
   if (!userId) {
     return res.status(400).json({ message: 'User ID is required' });
   }
@@ -44,4 +51,4 @@ const userDetails = async (req, res) => {
   });
 };
 
-export default userDetails;
+export default ctrlWrapper(userDetails);

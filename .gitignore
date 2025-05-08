@@ -3,3 +3,9 @@ node_modules/
 .idea
 .vscode
 .DS_Store
+public/avatars/*.jpeg
+public/avatars/*.jpg
+public/avatars/*.png
+public/recipes/*.jpeg
+public/recipes/*.jpg
+public/recipes/*.png
