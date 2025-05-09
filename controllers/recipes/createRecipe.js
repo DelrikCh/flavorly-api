@@ -5,8 +5,6 @@ import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 import addRecipe from '../../services/recipes/createRecipe.js';
 
 const createRecipe = async (req, res) => {
-  // Get filename from the path
-
   const filename = path.basename(req.body.thumb);
   const destPath = path.join('public', 'recipes', filename);
   await fs.rename(req.body.thumb, destPath);
