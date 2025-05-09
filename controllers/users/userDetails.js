@@ -27,9 +27,7 @@ const fieldAlias = {
 
 const pickFields = (obj, fields) =>
   fields.reduce((acc, key) => {
-    if (key in obj) {
-      acc[fieldAlias[key] || key] = obj[key];
-    }
+    acc[key] = obj[fieldAlias[key] || key];
     return acc;
   }, {});
 
