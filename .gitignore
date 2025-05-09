@@ -9,3 +9,6 @@ public/avatars/*.png
 public/recipes/*.jpeg
 public/recipes/*.jpg
 public/recipes/*.png
+temp/*.jpeg
+temp/*.jpg
+temp/*.png

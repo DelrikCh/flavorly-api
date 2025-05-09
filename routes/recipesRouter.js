@@ -17,6 +17,7 @@ import listFavoriteRecipes from '../controllers/recipes/listFavoriteRecipes.js';
 
 import validateBody from '../helpers/validateBody.js';
 import recipeSchema from '../schemas/recipes/createRecipeSchema.js';
+import parseCreateRecipeInputForm from '../helpers/parseIngredientsJson.js';
 
 const recipesRouter = express.Router();
 
@@ -30,7 +31,14 @@ recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
 recipesRouter.get('/:id', getRecipeById);
 
 recipesRouter.post('/thumb', authenticate, upload.single('thumb'), uploadThumb);
-recipesRouter.post('/', authenticate, validateBody(recipeSchema), createRecipe);
+recipesRouter.post(
+  '/',
+  authenticate,
+  upload.single('thumb'),
+  parseCreateRecipeInputForm,
+  validateBody(recipeSchema),
+  createRecipe
+);
 recipesRouter.delete('/:id', authenticate, deleteRecipe);
 recipesRouter.post('/:id/favorite', authenticate, addToFavorites);
 recipesRouter.delete('/:id/favorite', authenticate, removeFromFavorites);
