@@ -31,7 +31,7 @@ const seedData = async () => {
       categoriesData.map((category) => ({
         id: category._id.$oid,
         name: category.name,
-        thumbnailUrl: category.url,
+        thumbnailUrl: `${process.env.BASE_URL}/${category.url}`,
       }))
     );
     console.log('Categories seeded successfully.');
