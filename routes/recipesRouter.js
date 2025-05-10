@@ -28,7 +28,7 @@ recipesRouter.get('/user/:id?', authenticate, listUserRecipes);
 recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
 
 // Generic route must come last
-recipesRouter.get('/:id', getRecipeById);
+recipesRouter.get('/:id', attachUserIfExists, getRecipeById);
 
 recipesRouter.post(
   '/',
