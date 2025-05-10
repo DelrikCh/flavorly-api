@@ -6,6 +6,7 @@ const listRecipes = async (req, res) => {
   const offset = (page - 1) * limit;
 
   const result = await getRecipes({
+    userId: req.user?.id,
     category,
     ingredient,
     area,

@@ -1,12 +1,15 @@
 import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 import getUserRecipes from '../../services/recipes/getUserRecipes.js';
 
-const listMyRecipes = async (req, res) => {
+const listUserRecipes = async (req, res) => {
+  const { id: userId } = req.params;
+  const ownerId = userId ?? req.user?.id;
   const { page = 1, limit = 10 } = req.query;
   const offset = (page - 1) * limit;
 
   const result = await getUserRecipes({
-    userId: req.user.id,
+    userId: req.user?.id,
+    ownerId,
     limit: parseInt(limit),
     offset,
   });
@@ -18,4 +21,4 @@ const listMyRecipes = async (req, res) => {
   });
 };
 
-export default ctrlWrapper(listMyRecipes);
+export default ctrlWrapper(listUserRecipes);

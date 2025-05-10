@@ -1,5 +1,4 @@
 import ctrlWrapper from '../../helpers/ctrlWrapper.js';
-import getFavoriteRecipes from '../../services/recipes/getFavoriteRecipes.js';
 
 const currentUser = async (req, res) => {
   const user = req.user;
@@ -9,13 +8,6 @@ const currentUser = async (req, res) => {
       name: user.name,
       email: user.email,
       avatar: user.avatar,
-      favoriteRecipes: (
-        await getFavoriteRecipes({
-          ownerId: user.id,
-          limit: 0,
-          offset: 0,
-        })
-      ).rows.map((recipe) => recipe.id),
     },
   });
 };
