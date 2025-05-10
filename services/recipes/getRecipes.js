@@ -1,6 +1,14 @@
+import { literal } from 'sequelize';
 import models from '../../models/index.js';
 
-const getRecipes = async ({ category, ingredient, area, offset, limit }) => {
+const getRecipes = async ({
+  userId,
+  category,
+  ingredient,
+  area,
+  offset,
+  limit,
+}) => {
   const where = {};
   if (category) where.category = category;
   if (area) where.area = area;
@@ -21,8 +29,25 @@ const getRecipes = async ({ category, ingredient, area, offset, limit }) => {
     });
   }
 
+  let attributes;
+  if (userId) {
+    attributes = {
+      include: [
+        [
+          literal(`EXISTS (
+            SELECT 1 FROM "favorites"
+            WHERE "favorites"."recipeId" = "Recipe"."id"
+              AND "favorites"."userId" = '${userId}'
+          )`),
+          'isFavorite',
+        ],
+      ],
+    };
+  }
+
   return await models.Recipe.findAndCountAll({
     where,
+    attributes,
     include,
     offset,
     limit,

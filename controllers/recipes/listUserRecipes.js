@@ -3,11 +3,12 @@ import getUserRecipes from '../../services/recipes/getUserRecipes.js';
 
 const listUserRecipes = async (req, res) => {
   const { id: userId } = req.params;
-  const ownerId = userId ?? req.user.id;
+  const ownerId = userId ?? req.user?.id;
   const { page = 1, limit = 10 } = req.query;
   const offset = (page - 1) * limit;
 
   const result = await getUserRecipes({
+    userId: req.user?.id,
     ownerId,
     limit: parseInt(limit),
     offset,

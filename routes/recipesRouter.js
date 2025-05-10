@@ -1,4 +1,5 @@
 import express from 'express';
+import attachUserIfExists from '../middlewares/attachUserIfExists.js';
 import authenticate from '../middlewares/authenticate.js';
 import upload from '../middlewares/upload.js';
 
@@ -20,10 +21,10 @@ import parseCreateRecipeInputForm from '../helpers/parseIngredientsJson.js';
 
 const recipesRouter = express.Router();
 
-recipesRouter.get('/', listRecipes);
-recipesRouter.get('/popular', listPopularRecipes);
+recipesRouter.get('/', attachUserIfExists, listRecipes);
+recipesRouter.get('/popular', attachUserIfExists, listPopularRecipes);
 
-recipesRouter.get('/user/:id', authenticate, listUserRecipes);
+recipesRouter.get('/user/:id?', authenticate, listUserRecipes);
 recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
 
 // Generic route must come last

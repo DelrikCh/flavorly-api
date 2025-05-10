@@ -7,6 +7,7 @@ const listPopularRecipes = async (req, res) => {
   const { limit = DEFAULT_POPULAR_LIIMIT } = req.query;
 
   const recipes = await getPopularRecipes({
+    userId: req.user?.id,
     limit: parseInt(limit),
   });
 
