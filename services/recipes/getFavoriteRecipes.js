@@ -11,6 +11,7 @@ const getFavoriteRecipes = async ({ ownerId, limit, offset }) => {
     ],
     limit: limit === 0 ? undefined : limit,
     offset,
+    distinct: true,
   });
 
   const recipes = rows.map((fav) => fav.recipe).filter(Boolean);
