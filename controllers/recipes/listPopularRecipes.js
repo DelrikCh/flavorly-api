@@ -1,7 +1,7 @@
 import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 import getPopularRecipes from '../../services/recipes/getPopularRecipes.js';
 
-const DEFAULT_POPULAR_LIIMIT = 10;
+const DEFAULT_POPULAR_LIIMIT = 4;
 
 const listPopularRecipes = async (req, res) => {
   const { limit = DEFAULT_POPULAR_LIIMIT } = req.query;

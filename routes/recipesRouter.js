@@ -8,7 +8,7 @@ import listPopularRecipes from '../controllers/recipes/listPopularRecipes.js';
 
 import createRecipe from '../controllers/recipes/createRecipe.js';
 import deleteRecipe from '../controllers/recipes/deleteRecipe.js';
-import listMyRecipes from '../controllers/recipes/listMyRecipes.js';
+import listUserRecipes from '../controllers/recipes/listUserRecipes.js';
 
 import addToFavorites from '../controllers/recipes/addToFavorites.js';
 import removeFromFavorites from '../controllers/recipes/removeFromFavorites.js';
@@ -23,7 +23,7 @@ const recipesRouter = express.Router();
 recipesRouter.get('/', listRecipes);
 recipesRouter.get('/popular', listPopularRecipes);
 
-recipesRouter.get('/my', authenticate, listMyRecipes);
+recipesRouter.get('/user/:id', authenticate, listUserRecipes);
 recipesRouter.get('/favorites', authenticate, listFavoriteRecipes);
 
 // Generic route must come last
