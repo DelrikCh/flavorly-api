@@ -90,6 +90,8 @@ usersRouter.post('/register', validateBody(userRegisterSchema), registerUser);
  *                       type: string
  *                     name:
  *                       type: string
+ *                    avatar:
+ *                      type: string
  *       400:
  *         description: Missing or invalid credentials
  *       401:
