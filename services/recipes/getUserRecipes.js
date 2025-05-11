@@ -24,6 +24,7 @@ const getUserRecipes = async ({ userId, ownerId, offset, limit }) => {
     include: [models.Ingredient],
     offset,
     limit,
+    distinct: true,
   });
 
   return result;

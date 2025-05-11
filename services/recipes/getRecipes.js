@@ -52,6 +52,7 @@ const getRecipes = async ({
     offset,
     limit,
     order: [['createdAt', 'DESC']],
+    distinct: true,
   });
 };
 
