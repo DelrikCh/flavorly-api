@@ -20,6 +20,12 @@ const removeUserFavorite = async (userId, recipeId) => {
         where: { id: recipeId },
         transaction,
       });
+
+      await models.User.decrement('favoriteRecipes', {
+        by: 1,
+        where: { id: userId },
+        transaction,
+      });
     }
 
     // Commit the transaction

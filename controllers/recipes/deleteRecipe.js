@@ -1,14 +1,8 @@
 import ctrlWrapper from '../../helpers/ctrlWrapper.js';
-import findRecipe from '../../services/recipes/findRecipe.js';
+import deleteRecipeService from '../../services/recipes/deleteRecipe.js';
 
 const deleteRecipe = async (req, res) => {
-  const recipe = await findRecipe(req.params.id);
-
-  if (!recipe || recipe.ownerId !== req.user.id) {
-    return res.status(403).json({ message: 'Forbidden' });
-  }
-
-  await recipe.destroy();
+  await deleteRecipeService(req.user.id, req.params.id);
 
   res.json({ message: 'Deleted' });
 };
