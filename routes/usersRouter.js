@@ -90,7 +90,7 @@ usersRouter.post('/register', validateBody(userRegisterSchema), registerUser);
  *                       type: string
  *                     name:
  *                       type: string
- *                    avatar:
+ *                     avatar:
  *                      type: string
  *       400:
  *         description: Missing or invalid credentials
@@ -138,7 +138,7 @@ usersRouter.get('/current', authenticate, currentUser);
  *     summary: Get details of a user
  *     tags: [Users]
  *     security:
- *      - bearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -262,12 +262,6 @@ usersRouter.get('/following', authenticate, getFollowing);
  *         description: User not found
  *       401:
  *         description: Unauthorized
- */
-usersRouter.post('/:id/follow', authenticate, followUser);
-
-/**
- * @swagger
- * /users/{id}/follow:
  *   delete:
  *     summary: Unfollow a user
  *     tags: [Users]
@@ -290,6 +284,7 @@ usersRouter.post('/:id/follow', authenticate, followUser);
  *       401:
  *         description: Unauthorized
  */
+usersRouter.post('/:id/follow', authenticate, followUser);
 usersRouter.delete('/:id/follow', authenticate, unfollowUser);
 
 export default usersRouter;
