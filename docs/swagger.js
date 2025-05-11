@@ -9,12 +9,12 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:3000/api',
-      description: 'Development server',
-    },
-    {
       url: 'http://flavorly-api-gpdc.onrender.com/api',
       description: 'Production server',
+    },
+    {
+      url: 'http://localhost:3000/api',
+      description: 'Development server',
     },
   ],
 };
