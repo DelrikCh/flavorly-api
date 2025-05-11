@@ -54,6 +54,12 @@ const createRecipe = async (payload) => {
       transaction,
     });
 
+    await models.User.increment('addedRecipes', {
+      by: 1,
+      where: { id: userId },
+      transaction,
+    });
+
     // Commit the transaction
     await transaction.commit();
 

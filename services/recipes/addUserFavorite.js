@@ -20,6 +20,12 @@ const addUserFavorite = async (userId, recipeId) => {
         where: { id: recipeId },
         transaction,
       });
+
+      await models.User.increment('favoriteRecipes', {
+        by: 1,
+        where: { id: userId },
+        transaction,
+      });
     }
 
     // Commit the transaction
