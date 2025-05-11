@@ -56,7 +56,7 @@ const createRecipe = async (payload) => {
 
     await models.User.increment('addedRecipes', {
       by: 1,
-      where: { id: userId },
+      where: { id: ownerId },
       transaction,
     });
 
