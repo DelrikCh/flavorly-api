@@ -19,6 +19,7 @@ const anotherUserFields = [
   'email',
   'addedRecipes',
   'followers',
+  'isFollowing',
 ];
 const fieldAlias = {
   followers: 'followersCount',
@@ -27,7 +28,8 @@ const fieldAlias = {
 
 const pickFields = (obj, fields) =>
   fields.reduce((acc, key) => {
-    acc[key] = obj[fieldAlias[key] || key];
+    const k = fieldAlias[key] || key;
+    acc[key] = obj[k] || obj.getDataValue(k);
     return acc;
   }, {});
 
@@ -37,7 +39,7 @@ const userDetails = async (req, res) => {
   if (!userId) {
     return res.status(400).json({ message: 'User ID is required' });
   }
-  const userInfo = await findUser({ id: userId });
+  const userInfo = await findUser({ id: userId }, user.id);
   if (!userInfo) {
     return res.status(404).json({ message: 'User not found' });
   }
