@@ -1,9 +1,16 @@
+import { literal } from 'sequelize';
+
 import User from '../../models/User.js';
 import Follow from '../../models/Follow.js';
 import Recipe from '../../models/Recipe.js';
 import HttpError from '../../helpers/HttpError.js';
 
-const getFollowers = async (userId, page = 1, limit = 5) => {
+const getFollowers = async (
+  userId,
+  page = 1,
+  limit = 5,
+  ownerId = undefined
+) => {
   const user = await User.findByPk(userId);
   if (!user) {
     throw HttpError(404, 'User not found');
@@ -19,6 +26,16 @@ const getFollowers = async (userId, page = 1, limit = 5) => {
       as: 'follower',
       attributes: {
         exclude: ['password', 'createdAt', 'updatedAt', 'token'],
+        include: [
+          [
+            literal(`EXISTS (
+                        SELECT 1 FROM "follows" AS "isFollowing"
+                        WHERE "isFollowing"."followingId" = "follower"."id"
+                          AND "isFollowing"."followerId" = '${ownerId || '0'}'
+                      )`),
+            'isFollowing',
+          ],
+        ],
       },
     },
   });
@@ -40,6 +57,7 @@ const getFollowers = async (userId, page = 1, limit = 5) => {
         avatar: follower.avatar,
         addedRecipesCounter: recipeCount,
         recipesArray: recipes.map((r) => ({ title: r.title, thumb: r.thumb })),
+        isFollowing: follower.getDataValue('isFollowing'),
       };
     })
   );
