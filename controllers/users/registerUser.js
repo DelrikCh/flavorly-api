@@ -5,7 +5,7 @@ import ctrlWrapper from '../../helpers/ctrlWrapper.js';
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   // Check if the user already exists
-  const existingUser = await findUser({ email });
+  const existingUser = await findUser({ email }, null);
   if (existingUser) {
     return res.status(409).json({ message: 'Email in use' });
   }

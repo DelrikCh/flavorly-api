@@ -5,7 +5,7 @@ import { verifyToken } from '../helpers/jwt.js';
 const attachUserIfExists = async (req, res, next) => {
   const { authorization } = req.headers;
   const [bearer, token] = authorization?.split(' ') || [];
-  
+
   if (bearer !== 'Bearer' || !token) {
     return next();
   }
@@ -15,7 +15,7 @@ const attachUserIfExists = async (req, res, next) => {
     return next();
   }
 
-  const user = await findUser({ id: payload.id });
+  const user = await findUser({ id: payload.id }, null);
   if (!user || user.token !== token) {
     return next();
   }
