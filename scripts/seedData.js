@@ -95,6 +95,7 @@ const seedData = async () => {
     );
     console.log('Testimonials seeded successfully.');
 
+    let addedRecipesCounters = {};
     // Load and insert Recipes
     const recipesData = JSON.parse(
       fs.readFileSync(path.join(__dirname, '../data/recipes.json'), 'utf-8')
@@ -113,6 +114,8 @@ const seedData = async () => {
         createdAt: new Date(parseInt(rec.createdAt.$date.$numberLong)),
         updatedAt: new Date(parseInt(rec.updatedAt.$date.$numberLong)),
       });
+      addedRecipesCounters[rec.owner.$oid] =
+        (addedRecipesCounters[rec.owner.$oid] || 0) + 1;
       console.log(`Recipe ${recipe.id} seeded successfully.`);
 
       // Associate Ingredients
@@ -124,6 +127,17 @@ const seedData = async () => {
         });
       }
       console.log(`Ingredients for recipe ${recipe.id} seeded successfully.`);
+    }
+    // Update users with the number of added recipes
+    for (const userId in addedRecipesCounters) {
+      const user = await models.User.findByPk(userId);
+      if (user) {
+        user.addedRecipes = addedRecipesCounters[userId];
+        await user.save();
+      }
+      console.log(
+        `User ${userId} updated with added recipes count: ${addedRecipesCounters[userId]}`
+      );
     }
     console.log('Recipes seeded successfully.');
 
