@@ -24,7 +24,7 @@ const getRecipes = async ({
   if (ingredient) {
     include.push({
       model: models.Ingredient,
-      where: { id: ingredient },
+      where: { name: ingredient },
       through: { attributes: [] },
     });
   }
