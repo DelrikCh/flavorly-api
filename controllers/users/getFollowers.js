@@ -11,7 +11,8 @@ const getFollowers = async (req, res) => {
   const followers = await getFollowersService(
     userId,
     Number(page),
-    Number(limit)
+    Number(limit),
+    req.user.id
   );
   return res.status(200).json({ followers: followers });
 };
